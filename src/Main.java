@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    static final String FILE_NAME = "../data/students.dat";
+    static final String FILE_NAME = "students.dat";
 
     static ArrayList<Student> students = new ArrayList<>();
 
@@ -16,7 +16,10 @@ public class Main {
             System.out.println("2. View");
             System.out.println("3. Update");
             System.out.println("4. Delete");
-            System.out.println("5. Exit");
+            System.out.println("5.Search");
+            System.out.println("6.sort by name");
+            System.out.println("7.sort by age");
+            System.out.println("8. Exit");
 
             int choice = sc.nextInt();
 
@@ -28,8 +31,15 @@ public class Main {
                 case 3 ->
                     updateStudent(sc);
                 case 4 ->
-                    deleteStudent(sc);
-                case 5 -> { 
+                deleteStudent(sc);
+                case 5 ->
+                    searchStudent(sc);
+                case 6 ->
+                sortByName();
+                case 7 ->
+                sortByAge();
+                
+                case 8 -> { 
                     saveToFile();
                     System.out.println("Data saved. Bye!");
                     return;
@@ -120,7 +130,34 @@ public class Main {
         }
     }
 
-    
+    static void searchStudent(Scanner sc){
+        System.out.println("Enter Id to search student : ");
+        int id = sc.nextInt();
+
+        for(Student s : students){
+            if(s.getId()==id){
+                System.out.println("ID Found : "+ s);
+                return;
+            }
+        }
+        System.out.println("ID not found");
+    }
+
+    static void sortByName(){
+        Collections.sort(students,(s1,s2) ->
+    s1.getName().compareToIgnoreCase(s2.getName())
+);
+
+viewStudents();
+    }
+
+    static void sortByAge(){
+        Collections.sort(students , (s1,s2) ->
+    Integer.compare(s1.getAge(),s2.getAge())
+);
+
+viewStudents();    }
+
 
     static void deleteStudent(Scanner sc) {
         System.out.println("Enter ID to delete : ");

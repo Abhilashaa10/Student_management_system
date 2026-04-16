@@ -21,4 +21,12 @@ public class Student implements Serializable {
     public String toString() {
         return id + " | " + name + " | " + age + " | " + course;
     }
+
+    public String getName(){
+        return name;
+    }
+
+    public int getAge(){
+        return age;
+    }
 }
